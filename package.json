@@ -1,6 +1,6 @@
 {
   "name": "use-autoscroll",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "repository": {
     "type": "git",
@@ -13,7 +13,7 @@
     "url": "https://github.com/kamry-bowman/useAutoScroll/issues"
   },
   "homepage": "https://github.com/kamry-bowman/useAutoScroll#readme",
-  "main": "./dist/index.cjs.js",
+  "main": "./dist/use-autoscroll.cjs.js",
   "scripts": {
     "test": "echo \"Warning: no test specified\" || jest --env=node",
     "prebuild": "rimraf dist",

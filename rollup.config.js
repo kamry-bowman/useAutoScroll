@@ -4,7 +4,7 @@ import babel from "rollup-plugin-babel";
 export default {
   input: "src/index.js",
   output: {
-    file: "dist/bundle.js",
+    file: "dist/use-autoscroll.cjs.js",
     format: "cjs"
   },
   // All the used libs needs to be here
