@@ -29,7 +29,7 @@ const useAutoScroll = (node, selector) => {
   useEffect(
     function scrollToTarget() {
       if (steps.current && typeof target === "number") {
-        const current = steps.current[target || 0];
+        const current = steps.current[target];
         current.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     },
