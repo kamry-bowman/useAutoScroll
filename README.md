@@ -64,7 +64,7 @@ function App() {
 
 ## Contributing
 
-Contribtions and suggestions are welcome! Please open an Issue with any ideas!
+Contributions and suggestions are welcome! Please open an Issue with any ideas!
 
 ## Authors
 
