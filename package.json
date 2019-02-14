@@ -1,6 +1,6 @@
 {
   "name": "use-autoscroll",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "",
   "repository": {
     "type": "git",
@@ -42,6 +42,7 @@
     "rollup": "^1.1.2",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-node-resolve": "^4.0.0",
-    "rollup-plugin-replace": "^2.1.0"
+    "rollup-plugin-replace": "^2.1.0",
+    "rollup-plugin-uglify": "^6.0.2"
   }
 }

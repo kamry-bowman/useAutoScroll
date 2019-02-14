@@ -73,7 +73,7 @@ const useAutoScroll = (node, selector) => {
       candidate >= 0 ? candidate : steps.current.length + candidate;
     setTarget(prevPoint);
   };
-  return { scrollNext, scrollBack, position };
+  return { scrollNext, scrollBack, position, length: steps.current.length };
 };
 
 export default useAutoScroll;
