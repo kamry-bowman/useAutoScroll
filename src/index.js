@@ -18,7 +18,10 @@ const useAutoScroll = (node, selector, includeTop = true) => {
               }
             ]
           : [];
-        setSteps([...initialArray, ...node.querySelectorAll(selector)]);
+        setSteps([
+          ...initialArray,
+          ...Array.from(node.querySelectorAll(selector))
+        ]);
       }
     },
     [node]
@@ -55,7 +58,7 @@ const useAutoScroll = (node, selector, includeTop = true) => {
     document.addEventListener("scroll", updateScroll);
 
     // return cleanup behavior
-    return () => window.removeEventListener("scroll", updateScroll);
+    return () => document.removeEventListener("scroll", updateScroll);
   }, [node, steps]);
 
   // function exposed to consuming component
