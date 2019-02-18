@@ -1,25 +1,24 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
-const useAutoScroll = (node, selector) => {
+const useAutoScroll = (node, selector, includeTop = true) => {
   const [position, setPosition] = useState(0);
   const [target, setTarget] = useState(null);
-  const steps = useRef([
-    {
-      scrollIntoView: () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-    }
-  ]);
+  const [steps, setSteps] = useState([]);
 
   // grabs the DOM nodes that are targeted by the selector, and saves them to the steps ref
   useEffect(
     function grabJumpPoints() {
       if (node) {
-        const cards = node.querySelectorAll(selector);
-        steps.current.splice(1, steps.current.length - 1);
-        cards.forEach(card => {
-          steps.current.push(card);
-        });
+        const initialArray = includeTop
+          ? [
+              {
+                scrollIntoView: () => {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+              }
+            ]
+          : [];
+        setSteps([...initialArray, ...node.querySelectorAll(selector)]);
       }
     },
     [node]
@@ -28,9 +27,8 @@ const useAutoScroll = (node, selector) => {
   // tracks updates to target, and scrolls the screen to them when target updates
   useEffect(
     function scrollToTarget() {
-      if (steps.current && typeof target === "number") {
-        const current = steps.current[target];
-        current.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (steps.length && typeof target === "number") {
+        steps[target].scrollIntoView({ behavior: "smooth", block: "start" });
       }
     },
     [target]
@@ -42,7 +40,7 @@ const useAutoScroll = (node, selector) => {
       const scrollDistance = window.scrollY || 0;
       let newPoint = 0;
 
-      steps.current.forEach((point, index) => {
+      steps.forEach((point, index) => {
         // subtract 10 to give some leeway if autoscroll stops a few pixels short
         if (scrollDistance > point.offsetTop - 10) {
           newPoint = index;
@@ -62,18 +60,17 @@ const useAutoScroll = (node, selector) => {
 
   // function exposed to consuming component
   const scrollNext = () => {
-    const nextPoint = (position + 1) % steps.current.length;
+    const nextPoint = (position + 1) % steps.length;
     setTarget(nextPoint);
   };
 
   // function exposed to consuming component
   const scrollBack = () => {
     const candidate = position - 1;
-    const prevPoint =
-      candidate >= 0 ? candidate : steps.current.length + candidate;
+    const prevPoint = candidate >= 0 ? candidate : steps.length + candidate;
     setTarget(prevPoint);
   };
-  return { scrollNext, scrollBack, position, length: steps.current.length };
+  return { scrollNext, scrollBack, position, length: steps.length };
 };
 
 export default useAutoScroll;
